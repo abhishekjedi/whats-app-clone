@@ -1,0 +1,33 @@
+.main-chat-header{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left:10px;
+    padding-right: 10px;
+    
+    &__info{
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+         font-size: 10px;
+        
+    }
+
+   
+
+    &__group-name{
+        margin-left: 30px;
+    }
+
+    &__buttons{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 10%;
+    }
+
+    height:10vh;
+        background-color: rgb(255, 255, 255);
+    
+}

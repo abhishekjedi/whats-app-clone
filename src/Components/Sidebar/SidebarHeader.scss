@@ -1,0 +1,23 @@
+.SidebarHeader{
+    width:100%;
+    height: 8vh;
+    background-color: rgb(237, 237, 237);
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    
+
+    &__user-image{
+        width: 65%;
+        margin-left:10px;
+        cursor: pointer;
+    }
+    
+    &__icons {
+        display: flex;
+        flex-direction: row;
+        width: 35%;
+    
+        justify-content: space-around;
+    }
+}

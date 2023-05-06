@@ -1,0 +1,29 @@
+.chat-groups{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    margin:20px;
+    padding-bottom:10px ;
+
+}
+
+.user-information{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    height:70px;
+    cursor: pointer;
+
+    h1{
+        font-size: 20px;
+        font-family:'Times New Roman', Times, serif;
+    }
+    p{
+        font-size: 15px;
+        font-family: 'Times New Roman', Times, serif;
+        position: relative;
+        top:-25px;
+        left:20px;
+
+    }
+}
