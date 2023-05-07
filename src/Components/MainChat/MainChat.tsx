@@ -70,6 +70,7 @@ const MainChat = () => {
       email: loggedInUser.email,
       photoURL: loggedInUser.photoURL,
       message: value,
+      timestamp: serverTimestamp(),
     });
     const docRef4 = doc(colRef, loggedInUser.email);
     const colRef4 = collection(docRef4, "list");
@@ -78,6 +79,7 @@ const MainChat = () => {
       email: chatUser.email,
       photoURL: chatUser.photoURL,
       message: value,
+      timestamp: serverTimestamp(),
     });
   };
 

@@ -5,13 +5,35 @@ import { auth } from "./firebase";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Components/Home";
 import ChatPage from "./Components/ChatPage";
+interface user {
+  fullName: string;
+  email: string;
+  photoURL: string;
+}
 
 function App() {
+  const dummyUser: user = {
+    fullName: "",
+    email: "",
+    photoURL: "",
+  };
+  if (localStorage.getItem("user")) {
+    const tempUser = JSON.parse(localStorage.getItem("user") || "");
+    dummyUser.fullName = tempUser?.fullName;
+    dummyUser.email = tempUser.email;
+    dummyUser.photoURL = tempUser.photoURL;
+  }
+  const [user, setUser] = useState<user>(dummyUser);
   const signOut = () => {
+    const tempUser2: user = {
+      fullName: "",
+      email: "",
+      photoURL: "",
+    };
     auth
       .signOut()
       .then(() => {
-        setUser({ fullName: "", email: "", photoURL: "" });
+        setUser(tempUser2);
         localStorage.removeItem("user");
       })
       .catch((err) => alert(err.message));
@@ -26,25 +48,25 @@ function App() {
       element: <ChatPage signOut={signOut} />,
     },
   ]);
-
-  const [user, setUser] = useState<{
-    fullName: string | null;
-    email: string | null;
-    photoURL: string | null;
-  }>();
-
+  console.log(user);
+  localStorage.getItem("user");
   return (
     <div className="main-app-div">
-      {user?.fullName !== "" && <RouterProvider router={router} />}
+      {user.fullName !== "" && <RouterProvider router={router} />}
       {/* {user?.email !== "" && <MainChat />} */}
-      {user?.email === "" && (
+      {user.email === "" && (
         <Login
           setUser={(value: {
             fullName: string | null;
             email: string | null;
             photoURL: string | null;
           }) => {
-            setUser(value);
+            const tempUser: user = {
+              fullName: value.fullName ? value.fullName : "",
+              email: value.email ? value.email : "",
+              photoURL: value.photoURL ? value.photoURL : "",
+            };
+            setUser(tempUser);
           }}
         />
       )}

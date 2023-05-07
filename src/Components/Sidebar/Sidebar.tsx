@@ -2,22 +2,17 @@ import React from "react";
 import SidebarHeader from "./SidebarHeader";
 import "./Sidebar.scss";
 import SidebarSearch from "./SidebarSearch";
-import AddNewGroup from "./AddNewGroup";
 import ChatGroups from "./ChatGroups";
-import {
-  collection,
-  getDocs,
-  doc,
-  onSnapshot,
-  Unsubscribe,
-} from "firebase/firestore";
+import { collection, getDocs, doc, query, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 export const Sidebar: React.FC<{ signOut: () => void }> = ({ signOut }) => {
+  const reload = useSelector<RootState>((state) => state.reload.reload);
   const [searchedUser, setSearchedUser] = useState("");
-
   const currentUser = JSON.parse(localStorage.getItem("user")!);
   interface user {
     fullName: string;
@@ -34,46 +29,43 @@ export const Sidebar: React.FC<{ signOut: () => void }> = ({ signOut }) => {
   const [friendList, setFriendList] = useState<friend[]>([]);
 
   useEffect(() => {
-    const getDataFromFirebase = async () => {
+    const getAllUsers = async () => {
       const collectionRef = collection(db, "user");
       const dataArray: user[] = [];
-      onSnapshot(collectionRef, (docs) => {
-        docs.forEach((doc) => {
-          if (doc.data().email !== currentUser.email) {
-            const user1: user = {
-              fullName: doc.data().fullName,
-              email: doc.data().email,
-              photoURL: doc.data().photoURL,
-            };
-            dataArray.push(user1);
-            setAllUsers(dataArray);
-          }
-        });
+      const docSnap = await getDocs(collectionRef);
+      docSnap.forEach((doc) => {
+        if (doc.data().email !== currentUser.email) {
+          const tempUser: user = {
+            fullName: doc.data().fullName,
+            email: doc.data().email,
+            photoURL: doc.data().photoURL,
+          };
+          dataArray.push(tempUser);
+        }
       });
-
-      console.log(allUsers);
+      setAllUsers(dataArray);
+    };
+    const getAllfriends = async () => {
       const collectionRef2 = collection(db, "friendlist");
       const docRef = doc(collectionRef2, currentUser.email);
       const collectionRef3 = collection(docRef, "list");
       const dataArray2: friend[] = [];
 
-      onSnapshot(collectionRef3, (docs) => {
-        docs.forEach((doc) => {
-          console.log(doc.data());
-          const friend: friend = {
-            fullName: doc.data().fullName,
-            email: doc.data().email,
-            photoURL: doc.data().photoURL,
-            message: doc.data().message,
-          };
-          dataArray2.push(friend);
-          setFriendList(dataArray2);
-        });
+      const docSnap = await getDocs(collectionRef3);
+      docSnap.forEach((doc) => {
+        const tempFriend: friend = {
+          fullName: doc.data().fullName,
+          email: doc.data().email,
+          photoURL: doc.data().photoURL,
+          message: doc.data().message,
+        };
+        dataArray2.push(tempFriend);
       });
+      setFriendList(dataArray2);
     };
-    getDataFromFirebase();
-  }, []);
-  console.log(friendList);
+    getAllUsers();
+    getAllfriends();
+  }, [reload]);
   return (
     <div className="Sidebar">
       <SidebarHeader signOut={signOut} />

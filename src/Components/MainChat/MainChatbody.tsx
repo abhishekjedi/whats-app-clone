@@ -11,6 +11,8 @@ import {
   query,
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
+import { useDispatch } from "react-redux";
+import { reloadAction } from "../../store/reload";
 const MainChatbody = () => {
   interface messageStructure {
     senderEmail: string;
@@ -21,7 +23,7 @@ const MainChatbody = () => {
 
   const parms = useParams();
   const loggedInUser = JSON.parse(localStorage.getItem("user") || "");
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const getAllMessages = async () => {
       const colRef = collection(db, "chats");
@@ -55,6 +57,7 @@ const MainChatbody = () => {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    dispatch(reloadAction.change());
   };
 
   useEffect(() => {
