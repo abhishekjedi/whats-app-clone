@@ -1,0 +1,18 @@
+.home-div{
+    display: flex;
+    flex-direction: row;
+    height:100%;
+    width:100%;
+    background-color: white;
+}
+.background{
+    
+    width:60%;
+    height: 60%;
+    background-image: url('./assets/home-bg.jpg');
+    position:relative;
+    left:15%;
+    top:20%;
+    background-size:contain ;
+    background-repeat: no-repeat;
+}

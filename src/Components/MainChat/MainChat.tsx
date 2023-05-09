@@ -62,7 +62,6 @@ const MainChat = () => {
     const colRef = collection(db, "friendlist");
     const docRef3 = doc(colRef, chatUser.email);
     const colRef2 = collection(docRef3, "list");
-
     await setDoc(doc(colRef2, loggedInUser.email), {
       fullName: loggedInUser.fullName,
       email: loggedInUser.email,
@@ -81,10 +80,11 @@ const MainChat = () => {
       photoURL: chatUser.photoURL,
       message: value,
       timestamp: serverTimestamp(),
+    }).then(() => {
+      setTimeout(() => {
+        dispatch(reloadAction.change);
+      }, 500);
     });
-    setTimeout(() => {
-      dispatch(reloadAction.change);
-    }, 500);
   };
 
   return (

@@ -67,17 +67,9 @@ export const Sidebar: React.FC<{
               ?.data()
               ?.timestamp?.toDate()
               ?.toLocaleTimeString([], { timeStyle: "short" }),
-            // ?.match(/\d{2}:\d{2}|[AMP]+/g)
-            // ?.join(" "),
+           
           };
-          console.log(
-            doc
-              .data()
-              .timestamp.toDate()
-              .toLocaleTimeString()
-              .match(/\d{2}:\d{2}|[AMP]+/g)
-              .join(" ")
-          );
+         
           dataArray.push(tempUser);
         });
 
@@ -88,7 +80,6 @@ export const Sidebar: React.FC<{
       getAllfriends();
     }, 500);
   }, [reload, currentUser.email]);
-  // console.log(1);
 
   return (
     <div className="Sidebar">

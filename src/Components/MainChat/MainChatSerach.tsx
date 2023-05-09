@@ -4,11 +4,9 @@ import { EmojiEmotionsOutlined } from "@mui/icons-material";
 import MicNoneIcon from "@mui/icons-material/MicNone";
 import { useState } from "react";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
-import { useDispatch } from "react-redux";
 const MainChatSerach: React.FC<{
   onSend: (value: string) => void;
 }> = ({ onSend }) => {
-  const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const [isShown, setIsShown] = useState(false);
   const inputChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {

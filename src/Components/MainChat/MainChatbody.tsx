@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import "./MainChatbody.scss";
 
 import { useEffect } from "react";
@@ -10,10 +10,11 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { db, auth } from "../../firebase";
+import { db } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { reloadAction } from "../../store/reload";
 const MainChatbody = () => {
+  const dispatch = useDispatch();
   interface messageStructure {
     senderEmail: string;
     recieverEmail: string;
@@ -24,7 +25,6 @@ const MainChatbody = () => {
 
   const parms = useParams();
   const loggedInUser = JSON.parse(localStorage.getItem("user") || "");
-  const dispatch = useDispatch();
   useEffect(() => {
     const getAllMessages = async () => {
       const colRef = collection(db, "chats");
@@ -52,7 +52,6 @@ const MainChatbody = () => {
               // ?.join(" "),
             };
             dummyMessages1.push(tempEle);
-            console.log(tempData.timeStamp?.toDate()?.toLocaleTimeString());
           }
         });
         setMessages(dummyMessages1);
@@ -64,8 +63,10 @@ const MainChatbody = () => {
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   const scrollToBottom = () => {
+    setTimeout(() => {
+      dispatch(reloadAction.change());
+    }, 1000);
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    dispatch(reloadAction.change());
   };
 
   useEffect(() => {
