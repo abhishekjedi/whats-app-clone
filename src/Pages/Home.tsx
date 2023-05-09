@@ -1,6 +1,5 @@
 import React from "react";
-import Sidebar from "./Sidebar/Sidebar";
-import bg from "./assets/home-bg.jpg";
+import Sidebar from "../Components/Sidebar/Sidebar";
 import "./Home.scss";
 
 const Home: React.FC<{ signOut: () => void }> = ({ signOut }) => {

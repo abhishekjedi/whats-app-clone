@@ -7,6 +7,7 @@ const ChatGroups: React.FC<{
   lastmessage: string;
   photoURL: string;
   email: string;
+  time: string;
 }> = (props) => {
   const navigate = useNavigate();
   const goToUser = () => {
@@ -19,7 +20,10 @@ const ChatGroups: React.FC<{
       <Avatar src={props.photoURL} className="chat-groups__avatar" />
       <div className="user-information" onClick={goToUser}>
         <h1>{props.groupName}</h1>
-        <p>{props.lastmessage}</p>
+        <p>
+          {props.lastmessage}
+          <span className="time-span-2">{props.time}</span>
+        </p>
       </div>
     </div>
   );

@@ -1,11 +1,18 @@
 .main-chat-body{
     height:83vh;
     width:65vw; 
-    background-image: url('../assets//final_bg.jpg');
+    background-image: url('../../assets//final_bg.jpg');
 
     z-index: -5px;
     overflow-y: scroll;
    
+}
+.time-span{
+    font-size: xx-small;
+    margin-left: 10px;
+    color: gray;
+    position:relative;
+    top:10px;
 }
 .messages-div{
     display: flex;

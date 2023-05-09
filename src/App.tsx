@@ -3,8 +3,8 @@ import Login from "./Components/Login";
 import { useState } from "react";
 import { auth } from "./firebase";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Components/Home";
-import ChatPage from "./Components/ChatPage";
+import Home from "./Pages/Home";
+import ChatPage from "./Pages/ChatPage";
 interface user {
   fullName: string;
   email: string;

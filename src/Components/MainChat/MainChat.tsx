@@ -13,7 +13,10 @@ import {
   collection,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useDispatch } from "react-redux";
+import { reloadAction } from "../../store/reload";
 const MainChat = () => {
+  const dispatch = useDispatch();
   interface user {
     fullName: string;
     email: string;
@@ -43,7 +46,6 @@ const MainChat = () => {
   }, [parms.emailId]);
 
   const onSend = async (value: string) => {
-    await getUserInfo();
     console.log(chatUser);
     const payload = {
       senderEmail: loggedInUser.email,
@@ -51,27 +53,26 @@ const MainChat = () => {
       message: value,
       timeStamp: serverTimestamp(),
     };
-    console.log(parms.emailId);
     const docRef = collection(db, "chats", `${loggedInUser.email}`, "messages");
-    await addDoc(docRef, payload).then(() => {
-      console.log("document has been added");
-    });
+    await addDoc(docRef, payload);
 
     const docRef2 = collection(db, "chats", `${chatUser.email}`, "messages");
-    await addDoc(docRef2, payload).then(() => {
-      console.log("document has been added");
-    });
+    await addDoc(docRef2, payload);
 
     const colRef = collection(db, "friendlist");
     const docRef3 = doc(colRef, chatUser.email);
     const colRef2 = collection(docRef3, "list");
+
     await setDoc(doc(colRef2, loggedInUser.email), {
       fullName: loggedInUser.fullName,
       email: loggedInUser.email,
       photoURL: loggedInUser.photoURL,
       message: value,
       timestamp: serverTimestamp(),
+    }).then(() => {
+      console.log("document has been added");
     });
+
     const docRef4 = doc(colRef, loggedInUser.email);
     const colRef4 = collection(docRef4, "list");
     await setDoc(doc(colRef4, chatUser.email), {
@@ -81,6 +82,9 @@ const MainChat = () => {
       message: value,
       timestamp: serverTimestamp(),
     });
+    setTimeout(() => {
+      dispatch(reloadAction.change);
+    }, 500);
   };
 
   return (

@@ -5,7 +5,6 @@ import MicNoneIcon from "@mui/icons-material/MicNone";
 import { useState } from "react";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 import { useDispatch } from "react-redux";
-import { reloadAction } from "../../store/reload";
 const MainChatSerach: React.FC<{
   onSend: (value: string) => void;
 }> = ({ onSend }) => {
@@ -20,7 +19,6 @@ const MainChatSerach: React.FC<{
     if (message === "") return;
     onSend(message);
     setMessage("");
-    dispatch(reloadAction.change());
   };
   return (
     <form className="main-chat-search" onSubmit={submitHandler}>

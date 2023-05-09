@@ -18,6 +18,7 @@ const MainChatbody = () => {
     senderEmail: string;
     recieverEmail: string;
     message: string;
+    time: string | null;
   }
   const [messages, setMessages] = useState<messageStructure[]>();
 
@@ -36,15 +37,22 @@ const MainChatbody = () => {
         doc.forEach((ele) => {
           const tempData = ele.data();
           if (
-            tempData.senderEmail === loggedInUser.email ||
+            (tempData.timeStamp &&
+              tempData.senderEmail === loggedInUser.email) ||
             tempData.recieverEmail === loggedInUser.email
           ) {
             const tempEle: messageStructure = {
               senderEmail: tempData.senderEmail,
               recieverEmail: tempData.recieverEmail,
               message: tempData.message,
+              time: tempData.timeStamp
+                ?.toDate()
+                ?.toLocaleTimeString([], { timeStyle: "short" }),
+              // ?.match(/\d{2}:\d{2}|[AMP]+/g)
+              // ?.join(" "),
             };
             dummyMessages1.push(tempEle);
+            console.log(tempData.timeStamp?.toDate()?.toLocaleTimeString());
           }
         });
         setMessages(dummyMessages1);
@@ -86,7 +94,10 @@ const MainChatbody = () => {
                     ele.senderEmail == loggedInUser.email ? "#dcf8c6" : "#fff",
                 }}
               >
-                <p className="message">{ele.message}</p>
+                <p className="message">
+                  {ele.message}
+                  <span className={"time-span"}>{ele.time}</span>
+                </p>
               </div>
             </div>
           );

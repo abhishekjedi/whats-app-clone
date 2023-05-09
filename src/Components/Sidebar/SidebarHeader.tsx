@@ -6,6 +6,7 @@ import { Avatar, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const SidebarHeader: React.FC<{ signOut: () => void }> = ({ signOut }) => {
+  // console.log(2);
   const navigate = useNavigate();
   const clickHandler = () => {
     signOut();

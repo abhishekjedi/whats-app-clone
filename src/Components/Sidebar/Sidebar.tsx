@@ -5,12 +5,13 @@ import SidebarSearch from "./SidebarSearch";
 import ChatGroups from "./ChatGroups";
 import { collection, getDocs, doc, query, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
-export const Sidebar: React.FC<{ signOut: () => void }> = ({ signOut }) => {
+export const Sidebar: React.FC<{
+  signOut: () => void;
+}> = ({ signOut }) => {
   const reload = useSelector<RootState>((state) => state.reload.reload);
   const [searchedUser, setSearchedUser] = useState("");
   const currentUser = JSON.parse(localStorage.getItem("user")!);
@@ -24,48 +25,71 @@ export const Sidebar: React.FC<{ signOut: () => void }> = ({ signOut }) => {
     email: string;
     photoURL: string;
     message: string;
+    time: string;
   }
   const [allUsers, setAllUsers] = useState<user[]>([]);
   const [friendList, setFriendList] = useState<friend[]>([]);
 
   useEffect(() => {
-    const getAllUsers = async () => {
-      const collectionRef = collection(db, "user");
-      const dataArray: user[] = [];
-      const docSnap = await getDocs(collectionRef);
-      docSnap.forEach((doc) => {
-        if (doc.data().email !== currentUser.email) {
-          const tempUser: user = {
+    setTimeout(() => {
+      const getAllUsers = async () => {
+        const collectionRef = collection(db, "user");
+        const dataArray: user[] = [];
+        const docSnap = await getDocs(collectionRef);
+        docSnap.forEach((doc) => {
+          if (doc.data().email !== currentUser.email) {
+            const tempUser: user = {
+              fullName: doc.data().fullName,
+              email: doc.data().email,
+              photoURL: doc.data().photoURL,
+            };
+            dataArray.push(tempUser);
+          }
+        });
+
+        setAllUsers(dataArray);
+      };
+
+      const getAllfriends = async () => {
+        const collectionRef2 = collection(db, "friendlist");
+        const docRef = doc(collectionRef2, currentUser.email);
+        const collectionRef3 = collection(docRef, "list");
+        const q = query(collectionRef3, orderBy("timestamp", "desc"));
+        const docSnap = await getDocs(q);
+        const dataArray: friend[] = [];
+        docSnap.forEach((doc) => {
+          const tempUser: friend = {
             fullName: doc.data().fullName,
             email: doc.data().email,
             photoURL: doc.data().photoURL,
+            message: doc.data().message,
+            time: doc
+              ?.data()
+              ?.timestamp?.toDate()
+              ?.toLocaleTimeString([], { timeStyle: "short" }),
+            // ?.match(/\d{2}:\d{2}|[AMP]+/g)
+            // ?.join(" "),
           };
+          console.log(
+            doc
+              .data()
+              .timestamp.toDate()
+              .toLocaleTimeString()
+              .match(/\d{2}:\d{2}|[AMP]+/g)
+              .join(" ")
+          );
           dataArray.push(tempUser);
-        }
-      });
-      setAllUsers(dataArray);
-    };
-    const getAllfriends = async () => {
-      const collectionRef2 = collection(db, "friendlist");
-      const docRef = doc(collectionRef2, currentUser.email);
-      const collectionRef3 = collection(docRef, "list");
-      const dataArray2: friend[] = [];
+        });
 
-      const docSnap = await getDocs(collectionRef3);
-      docSnap.forEach((doc) => {
-        const tempFriend: friend = {
-          fullName: doc.data().fullName,
-          email: doc.data().email,
-          photoURL: doc.data().photoURL,
-          message: doc.data().message,
-        };
-        dataArray2.push(tempFriend);
-      });
-      setFriendList(dataArray2);
-    };
-    getAllUsers();
-    getAllfriends();
-  }, [reload]);
+        setFriendList(dataArray);
+      };
+
+      getAllUsers();
+      getAllfriends();
+    }, 500);
+  }, [reload, currentUser.email]);
+  // console.log(1);
+
   return (
     <div className="Sidebar">
       <SidebarHeader signOut={signOut} />
@@ -93,6 +117,7 @@ export const Sidebar: React.FC<{ signOut: () => void }> = ({ signOut }) => {
                 lastmessage=""
                 photoURL={userInfo.photoURL}
                 email={userInfo.email}
+                time=""
               />
             );
           })}
@@ -106,6 +131,7 @@ export const Sidebar: React.FC<{ signOut: () => void }> = ({ signOut }) => {
               lastmessage={userInfo.message}
               photoURL={userInfo.photoURL}
               email={userInfo.email}
+              time={userInfo.time}
             />
           );
         })}
