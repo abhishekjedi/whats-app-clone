@@ -11,10 +11,7 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useDispatch } from "react-redux";
-import { reloadAction } from "../../store/reload";
 const MainChatbody = () => {
-  const dispatch = useDispatch();
   interface messageStructure {
     senderEmail: string;
     recieverEmail: string;
@@ -63,9 +60,6 @@ const MainChatbody = () => {
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    setTimeout(() => {
-      dispatch(reloadAction.change());
-    }, 1000);
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 

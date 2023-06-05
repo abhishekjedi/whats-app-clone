@@ -13,10 +13,7 @@ import {
   collection,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useDispatch } from "react-redux";
-import { reloadAction } from "../../store/reload";
 const MainChat = () => {
-  const dispatch = useDispatch();
   interface user {
     fullName: string;
     email: string;
@@ -80,10 +77,6 @@ const MainChat = () => {
       photoURL: chatUser.photoURL,
       message: value,
       timestamp: serverTimestamp(),
-    }).then(() => {
-      setTimeout(() => {
-        dispatch(reloadAction.change);
-      }, 500);
     });
   };
 
