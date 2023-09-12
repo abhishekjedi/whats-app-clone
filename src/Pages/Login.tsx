@@ -25,17 +25,17 @@ const Login: React.FC<{
 
   return (
     <div className="login">
-      <div className="login-container">
-        <img
-          className="login-logo"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1022px-WhatsApp.svg.png"
-          alt=""
-        />
-        <p className="login-name">WhatsApp Web</p>
+      <div
+        className="login-container"
+        style={{ background: " rgb(39, 46, 52)" }}
+      >
+        <div className="login-logo" style={{}} />
+        <p className="login-name">ChitChat</p>
         <button className="login-btn" onClick={SignInWithGoogle}>
           <img
             src="https://w7.pngwing.com/pngs/8/502/png-transparent-google-logo-google-logo-google-now-google-search-google-plus-search-engine-optimization-trademark-logo.png"
             alt="login with google"
+            className="login-image"
           />
           Login with Google
         </button>

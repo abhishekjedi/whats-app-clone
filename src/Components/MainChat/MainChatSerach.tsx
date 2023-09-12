@@ -43,7 +43,7 @@ const MainChatSerach: React.FC<{
       />
       <button className="main-chat-search__btn">Submit</button>
       <div>
-        <MicNoneIcon />
+        <MicNoneIcon style={{ color: "white" }} />
       </div>
     </form>
   );

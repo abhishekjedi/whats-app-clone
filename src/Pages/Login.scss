@@ -3,23 +3,15 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: rgb(240, 240, 240);
+    background-color: #303841;
     position: relative;
     z-index: 100;
     overflow: hidden;
 }
 
-.login::before {
-    width: 100vw;
-    height: 222px;
-    background-color: #4ec0a5;
-    position: absolute;
-    top: 0;
-    content: "";
-}
 
 .login-container {
-    background-color: #fff;
+    background-color: rgb(39, 46, 52);
     width: 400px;
     margin: auto;
     height: 400px;
@@ -33,15 +25,17 @@
 }
 
 .login-logo {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 20px;
+    width: 220px;
+    height: 200px;
+    background-image: url("../assets/chat-app-logo.jpg");
+    object-fit: cover;
+    mix-blend-mode: multiply;
 }
-
 .login-name {
     font-size: 17px;
     font-weight: 500;
     margin-bottom: 20px;
+    color: white;
 }
 
 .login-btn {
@@ -52,18 +46,16 @@
     justify-content: center;
     border: none;
     outline: none;
-    background-color: #00755a;
-    color: #fff;
+    background-color:#303841;
+    color: rgb(166, 164, 164);
     font-size: 15px;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.login-btn:hover {
-    background-color: #005541;
+    
 }
 
 .login-btn>img {
     width: 20px;
     margin-right: 10px;
+    mix-blend-mode:multiply;
 }

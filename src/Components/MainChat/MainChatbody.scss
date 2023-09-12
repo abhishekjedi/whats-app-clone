@@ -1,10 +1,10 @@
 .main-chat-body{
     height:83vh;
-    width:65vw; 
-    background-image: url('../../assets//final_bg.jpg');
-
+    width:70vw; 
+    background-color: rgb(39, 46, 52);
     z-index: -5px;
     overflow-y: scroll;
+    border-top: solid 10px "white";
    
 }
 .time-span{
@@ -26,9 +26,9 @@
         position: relative;
         max-width: 400px;
         padding: 10px;
-        background-color: #dcf8c6;
         border-radius: 10px;
         height: fit-content;
+        color: white;
 }
 .message{
     text-align: left;

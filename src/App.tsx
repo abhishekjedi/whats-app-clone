@@ -1,5 +1,5 @@
 import "./App.scss";
-import Login from "./Components/Login";
+import Login from "./Pages/Login";
 import { useState } from "react";
 import { auth } from "./firebase";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

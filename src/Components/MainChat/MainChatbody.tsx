@@ -86,7 +86,9 @@ const MainChatbody = () => {
                 className="messages"
                 style={{
                   backgroundColor:
-                    ele.senderEmail == loggedInUser.email ? "#dcf8c6" : "#fff",
+                    ele.senderEmail == loggedInUser.email
+                      ? "#343a40"
+                      : "#443f8f",
                 }}
               >
                 <p className="message">

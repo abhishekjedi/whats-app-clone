@@ -20,13 +20,13 @@ const SidebarHeader: React.FC<{ signOut: () => void }> = ({ signOut }) => {
       </div>
       <div className="SidebarHeader__icons">
         <IconButton>
-          <InsertCommentIcon />
+          <InsertCommentIcon style={{ color: "white" }} />
         </IconButton>
         <IconButton>
-          <DonutLarge />
+          <DonutLarge style={{ color: "white" }} />
         </IconButton>
         <IconButton>
-          <MoreVertIcon />
+          <MoreVertIcon style={{ color: "white" }} />
         </IconButton>
       </div>
     </div>

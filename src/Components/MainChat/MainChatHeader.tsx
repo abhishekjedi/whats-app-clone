@@ -43,10 +43,10 @@ const MainChatHeader = () => {
       </div>
       <div className="main-chat-header__buttons">
         <IconButton>
-          <InsertCommentIcon />
+          <InsertCommentIcon style={{ color: "white" }} />
         </IconButton>
         <IconButton>
-          <MoreVertIcon />
+          <MoreVertIcon style={{ color: "white" }} />
         </IconButton>
       </div>
     </div>
