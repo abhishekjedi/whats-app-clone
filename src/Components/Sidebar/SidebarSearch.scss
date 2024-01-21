@@ -1,0 +1,25 @@
+.search{
+    width:100%;
+    height:6vh;
+background-color: #303841;
+color: rgba(166, 176, 207, .5);
+    &__btn{
+        display:none;
+    }
+
+    &__input{
+        margin-left:1rem;
+        margin-top:0.5rem;
+        width:90%;
+        height:4vh;
+        border-radius: 5px;
+        padding:5px;
+        border: none;
+        color: #aaa5f5;
+        background-color: #36404a;    
+}
+
+    &__input:focus{
+        outline: none;
+    }
+}
