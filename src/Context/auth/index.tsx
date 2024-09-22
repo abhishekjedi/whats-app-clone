@@ -1,5 +1,5 @@
 import { AuthContextType, AuthManagerProps, User } from "./auth.manager.types";
-import { onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, db, googleProvider } from "../../Firebase";
 import { useState, createContext, useEffect } from "react";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -17,16 +17,10 @@ const AuthManager = ({ children }: AuthManagerProps) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const dummyUser = {
-          fullName: user?.displayName || "",
-          email: user?.email || "",
-          photoURL: user?.photoURL || "",
-        };
-        setUser(dummyUser);
-      }
-    });
+    // Check if user is logged in
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user") || ""));
+    }
   }, []);
 
   const login = async () => {
@@ -39,6 +33,7 @@ const AuthManager = ({ children }: AuthManagerProps) => {
     setUser(user);
     const userRef = collection(db, CONSTANTS.COLLECTION_NAMES.USER);
     await setDoc(doc(userRef, user.email), user);
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   const logOut = () => {
@@ -47,6 +42,7 @@ const AuthManager = ({ children }: AuthManagerProps) => {
       .then(() => {
         setUser(null);
       })
+      .then(() => localStorage.removeItem("user"))
       .catch((err) => alert(err.message));
   };
 
