@@ -8,9 +8,7 @@ const Home = () => {
   return (
     <div className="home-div">
       <Sidebar signOut={logOut} />
-      <div className="background">
-        {/* <img src={bg} alt="background" className="background" /> */}
-      </div>
+      <div className="background"></div>
     </div>
   );
 };

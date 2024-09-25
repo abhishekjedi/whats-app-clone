@@ -20,10 +20,10 @@ const ChatGroups: React.FC<{
       <Avatar src={props.photoURL} className="chat-groups__avatar" />
       <div className="user-information" onClick={goToUser}>
         <h1>{props.groupName}</h1>
-        <p>
-          {props.lastmessage}
+        <div>
+          <p>{props.lastmessage}</p>
           <span className="time-span-2">{props.time}</span>
-        </p>
+        </div>
       </div>
     </div>
   );

@@ -1,18 +1,16 @@
-.home-div{
-    display: flex;
-    flex-direction: row;
-    height:100%;
-    width:100%;
-    background-color: rgb(39,46,52);
+@use "../../styles/globals.scss";
+
+.home-div {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(39, 46, 52);
 }
-.background{
-    
-    width:60%;
-    height: 60%;
-   
-    // position:relative;
-    // left:15%;
-    // top:20%;
-    // background-size:contain ;
-    // background-repeat: no-repeat;
+.background {
+  width: 60%;
+  height: 60%;
+  @include globals.respond-to(mobile) {
+    display: none;
+  }
 }

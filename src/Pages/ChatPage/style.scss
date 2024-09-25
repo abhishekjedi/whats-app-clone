@@ -1,4 +1,12 @@
-.chatpage{
-    display:flex;
-    flex-direction: row;
+@use "../../styles/globals.scss";
+
+.chatpage {
+  display: flex;
+  flex-direction: row;
+
+  .chatpage__sidebar {
+    @include globals.respond-to(mobile) {
+      display: none;
+    }
+  }
 }

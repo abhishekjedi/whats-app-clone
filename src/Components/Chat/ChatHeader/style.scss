@@ -1,32 +1,41 @@
-.main-chat-header{
-    display:flex;
+@use "../../../styles/globals.scss";
+
+.main-chat-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 10vh;
+  background-color: #303841;
+
+  &__info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 10px;
+  }
+
+  &__group-name {
+    margin-left: 30px;
+    color: white;
+  }
+
+  &__buttons {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-left:10px;
-    padding-right: 10px;
-    height: 10vh;
-    background-color:#303841;
-    
-    &__info{
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-         font-size: 10px;
-        
-    }
+    align-items: center;
+    width: 10%;
+  }
+}
 
-    &__group-name{
-        margin-left: 30px;
-        color:white;
-    }
+.main-chat-header__back {
+  color: white;
+  visibility: hidden;
 
-    &__buttons{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        width: 10%;
-    }
- 
-    
+  @include globals.respond-to(mobile) {
+    visibility: visible;
+    margin-right: 12px;
+  }
 }

@@ -1,25 +1,33 @@
-.Sidebar{
-    width:30vw;
-    height:100vh;
-   
-background-color: #303841;
-    overflow-y: scroll;
+@use "../../styles/globals.scss";
+
+.Sidebar {
+  width: 30vw;
+  height: 100vh;
+  background-color: #303841;
+  overflow-y: auto;
+
+  @include globals.respond-to(mobile) {
+    width: 100vw;
+    overflow-x: hidden;
+  }
 }
 ::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
+  background-color: #303841;
+  color: #303841;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background:#303841;
+  background: #303841;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #303841;
+  background: #303841;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background: #555;
 }

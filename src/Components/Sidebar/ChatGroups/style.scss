@@ -1,37 +1,45 @@
-.chat-groups{
-    display: flex;
-    flex-direction: row;
-    align-items:center;
-    margin:20px;
-    padding-bottom:10px ;
-
+.chat-groups {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px;
+  padding-bottom: 10px;
 }
 .time-span-2 {
-    font-size: 10px;
-    margin-left: 20px;
-    color: gray;
-    position: relative;
+  font-size: 10px;
+  margin-left: 20px;
+  color: gray;
+  position: relative;
 }
 
-.user-information{
-    margin-left: 20px;
+.user-information {
+  width: 100%;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 70px;
+  cursor: pointer;
+
+  h1 {
+    width: 70%;
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+    color: white;
+  }
+  div {
     display: flex;
     flex-direction: column;
-    height:70px;
-    cursor: pointer;
+    width: 70%;
 
-    h1{
-        font-size: 20px;
-        font-family:'Times New Roman', Times, serif;
-        color:white;
+    p {
+      font-size: small;
+      color: white;
+      font-size: 12px;
+      color: rgb(192, 190, 190);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 40%;
     }
-    p{
-        font-size: 15px;
-        font-family: 'Times New Roman', Times, serif;
-        position: relative;
-        top:-25px;
-        left:20px;
-        color: #afb2c2;
-
-    }
+  }
 }

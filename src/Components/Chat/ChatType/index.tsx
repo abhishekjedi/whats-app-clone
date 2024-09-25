@@ -28,6 +28,7 @@ const ChatSerach: React.FC<{
       {isShown && (
         <div className="emoji-picker">
           <EmojiPicker
+            className="emoji-picker__picker"
             onEmojiClick={(emojiData: EmojiClickData, event: MouseEvent) => {
               setMessage((prev) => prev + emojiData.emoji);
             }}

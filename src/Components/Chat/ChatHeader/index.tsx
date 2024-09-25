@@ -1,13 +1,20 @@
 import InsertCommentIcon from "@mui/icons-material/InsertComment";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Avatar, IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./style.scss";
 import { ChatHeaderProps } from "./ChatHeader.types";
+import { useNavigate } from "react-router-dom";
 
 const ChatHeader = ({ user }: ChatHeaderProps) => {
+  const navigate = useNavigate();
   return (
     <div className="main-chat-header">
       <div className="main-chat-header__info">
+        <ArrowBackIcon
+          className="main-chat-header__back"
+          onClick={() => navigate(-1)}
+        />
         <span className="main-chat-header__avatar">
           <Avatar src={user.photoURL} />
         </span>

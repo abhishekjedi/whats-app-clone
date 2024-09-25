@@ -8,7 +8,10 @@ const ChatPage = () => {
   const { logOut } = useContext(AuthContext);
   return (
     <div className="chatpage">
-      <Sidebar signOut={logOut} />
+      <div className="chatpage__sidebar">
+        <Sidebar signOut={logOut} />
+      </div>
+
       <MainChat />
     </div>
   );
