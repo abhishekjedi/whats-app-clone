@@ -8,7 +8,7 @@ import { serverTimestamp } from "firebase/firestore";
 import { addItem, getItem, setItem } from "../../Firebase/Firestore.service";
 import { AuthContext } from "../../Context/auth";
 import { User } from "../../Context/auth/auth.manager.types";
-const MainChat = () => {
+const Chat = () => {
   const { user: loggedInUser } = useContext(AuthContext);
   const [chatUser, setChatUser] = useState<User | null>(null);
   const parms = useParams();
@@ -67,4 +67,4 @@ const MainChat = () => {
   );
 };
 
-export default MainChat;
+export default Chat;

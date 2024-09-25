@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Sidebar from "../../Components/Sidebar";
-import MainChat from "../../Components/Chat";
+import Chat from "../../Components/Chat";
 import "./style.scss";
 import { AuthContext } from "../../Context/auth";
 
@@ -12,7 +12,7 @@ const ChatPage = () => {
         <Sidebar signOut={logOut} />
       </div>
 
-      <MainChat />
+      <Chat />
     </div>
   );
 };
