@@ -5,6 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./style.scss";
 import { ChatHeaderProps } from "./ChatHeader.types";
 import { useNavigate } from "react-router-dom";
+import CONSTANTS from "../../../Constants/constants";
 
 const ChatHeader = ({ user }: ChatHeaderProps) => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const ChatHeader = ({ user }: ChatHeaderProps) => {
       <div className="main-chat-header__info">
         <ArrowBackIcon
           className="main-chat-header__back"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate(CONSTANTS.PAGES.HOME)}
         />
         <span className="main-chat-header__avatar">
           <Avatar src={user.photoURL} />
