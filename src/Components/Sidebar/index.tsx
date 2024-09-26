@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import SidebarHeader from "./SidebarHeader";
 import "./style.scss";
 import SidebarSearch from "./SidebarSearch";
@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { AuthContext } from "../../Context/auth";
 import { Friend, User } from "../../Context/auth/auth.manager.types";
 import { getItems } from "../../Firebase/Firestore.service";
+import useFirestoreCollection from "../../hooks/useFirestore";
 
 export const Sidebar: React.FC<{
   signOut: () => void;
@@ -15,7 +16,17 @@ export const Sidebar: React.FC<{
   const [searchedUser, setSearchedUser] = useState("");
   const currentUser = user;
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  const [friendList, setFriendList] = useState<Friend[]>([]);
+  // const [friendList, setFriendList] = useState<Friend[]>([]);
+
+  const friendCollectionRef: [string, ...string[]] = useMemo(
+    () => ["friendlist", `${currentUser?.email}`, "list"],
+    [currentUser?.email]
+  );
+
+  const { data: friendList } =
+    useFirestoreCollection<Friend>(friendCollectionRef);
+
+  console.log(friendList);
 
   useEffect(() => {
     const getAllUsers = async () => {
@@ -23,18 +34,18 @@ export const Sidebar: React.FC<{
       setAllUsers(users);
     };
 
-    const getAllFriends = async () => {
-      const friends = await getItems<Friend>([
-        "friendlist",
-        `${currentUser?.email}`,
-        "list",
-      ]);
+    // const getAllFriends = async () => {
+    //   const friends = await getItems<Friend>([
+    //     "friendlist",
+    //     `${currentUser?.email}`,
+    //     "list",
+    //   ]);
 
-      setFriendList(friends);
-    };
+    //   setFriendList(friends);
+    // };
 
     getAllUsers();
-    getAllFriends();
+    // getAllFriends();
   }, [currentUser?.email]);
 
   return (
@@ -80,7 +91,11 @@ export const Sidebar: React.FC<{
               lastmessage={userInfo.message}
               photoURL={userInfo.photoURL}
               email={userInfo.email}
-              time={userInfo.time}
+              time={userInfo.timeStamp?.toDate()?.toLocaleString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })}
             />
           );
         })}

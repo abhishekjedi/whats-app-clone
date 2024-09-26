@@ -1,3 +1,4 @@
+import { generateCustomQueryProps } from "./firebase.types";
 import { db as firestore } from "./index";
 import {
   collection,
@@ -9,6 +10,10 @@ import {
   QuerySnapshot,
   DocumentData,
   getDoc,
+  query,
+  orderBy,
+  limit,
+  where,
   setDoc,
 } from "firebase/firestore";
 
@@ -60,8 +65,9 @@ export const listenToCollection = <T>(
   errorCallback?: (error: Error) => void
 ) => {
   const colRef = collection(firestore, ...collectionName);
+  const q = query(colRef, orderBy("timeStamp"));
   return onSnapshot(
-    colRef,
+    q,
     (snapshot: QuerySnapshot<DocumentData>) => {
       const items: Array<T & { id: string }> = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -71,4 +77,43 @@ export const listenToCollection = <T>(
     },
     errorCallback
   );
+};
+
+export const getCustomDataFromFirebase = async ({
+  collectionName,
+  orderByKey,
+  limitAmt = 100,
+  whereQuery,
+}: generateCustomQueryProps) => {
+  const q = generateCustomQuery({
+    collectionName,
+    orderByKey,
+    limitAmt,
+    whereQuery,
+  });
+  const docs = await getDocs(q);
+
+  return docs.docs.map((doc) => doc.data());
+};
+
+export const generateCustomQuery = ({
+  collectionName,
+  orderByKey,
+  limitAmt = 10,
+  whereQuery,
+}: generateCustomQueryProps) => {
+  const whereQueries =
+    whereQuery?.map((element) => {
+      return where(element.field, element.operator, element.value);
+    }) || [];
+  const colRef = collection(firestore, ...collectionName);
+  const q = query(
+    colRef,
+    orderByKey ? orderBy(orderByKey) : orderBy("timeStamp", "desc"),
+
+    ...whereQueries,
+    limit(limitAmt)
+  );
+
+  return q;
 };

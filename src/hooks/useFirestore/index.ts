@@ -13,6 +13,7 @@ const useFirestoreCollection = <T>(
   useEffect(() => {
     const handleSnapshot = (items: Array<T & { id: string }>) => {
       setData(transform ? transform(items) : items);
+      console.log(items);
       setLoading(false);
     };
 

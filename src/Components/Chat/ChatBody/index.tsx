@@ -53,7 +53,13 @@ const Chatbody = () => {
               >
                 <p className="message">
                   {ele.message}
-                  <span className={"time-span"}>{ele.time}</span>
+                  <span className={"time-span"}>
+                    {ele.timeStamp?.toDate()?.toLocaleString("en-US", {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                  </span>
                 </p>
               </div>
             </div>

@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type AuthManagerProps = {
   children: React.ReactNode;
 };
@@ -19,5 +21,5 @@ export type Friend = {
   email: string;
   photoURL: string;
   message: string;
-  time: string;
+  timeStamp: Timestamp;
 };

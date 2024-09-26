@@ -37,26 +37,34 @@ const Chat = () => {
     await Promise.all([
       addItem(["chats", `${loggedInUser?.email}`, "messages"], payload),
       addItem(["chats", `${chatUser?.email}`, "messages"], payload),
-      setItem(["friendlist", loggedInUser?.email || ""], "list", {
-        fullName: chatUser?.fullName,
-        email: chatUser?.email,
-        photoURL: chatUser?.photoURL,
-        message: value,
-        timestamp: serverTimestamp(),
-      }),
-      setItem(["friendlist", chatUser?.email || ""], "list", {
-        fullName: loggedInUser?.fullName,
-        email: loggedInUser?.email,
-        photoURL: loggedInUser?.photoURL,
-        message: value,
-        timestamp: serverTimestamp(),
-      }),
+      setItem(
+        ["friendlist", loggedInUser?.email || "", "list"],
+        chatUser?.email || "",
+        {
+          fullName: chatUser?.fullName,
+          email: chatUser?.email,
+          photoURL: chatUser?.photoURL,
+          message: value,
+          timeStamp: serverTimestamp(),
+        }
+      ),
+      setItem(
+        ["friendlist", chatUser?.email || "", "list"],
+        loggedInUser?.email || "",
+        {
+          fullName: loggedInUser?.fullName,
+          email: loggedInUser?.email,
+          photoURL: loggedInUser?.photoURL,
+          message: value,
+          timeStamp: serverTimestamp(),
+        }
+      ),
     ]);
   };
 
   return (
     <div className="main-chat">
-      {loggedInUser && <ChatHeader user={loggedInUser} />}
+      {chatUser && <ChatHeader user={chatUser} />}
       <Chatbody />
       <ChatSerach
         onSend={(value: string) => {
