@@ -1,4 +1,4 @@
-import { OrderByDirection, WhereFilterOp } from "firebase/firestore";
+import { WhereFilterOp } from "firebase/firestore";
 
 export type whereQueryProps = {
   field: string;

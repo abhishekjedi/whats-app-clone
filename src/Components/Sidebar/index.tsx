@@ -8,7 +8,7 @@ import { AuthContext } from "../../Context/auth";
 import { Friend, User } from "../../Context/auth/auth.manager.types";
 import { getItems } from "../../Firebase/Firestore.service";
 import useFirestoreCollection from "../../hooks/useFirestore";
-import { OrderByDirection, QueryOrderByConstraint } from "firebase/firestore";
+import { OrderByDirection } from "firebase/firestore";
 
 export const Sidebar: React.FC<{
   signOut: () => void;
