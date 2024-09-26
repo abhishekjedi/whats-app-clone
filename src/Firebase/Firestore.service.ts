@@ -15,6 +15,7 @@ import {
   limit,
   where,
   setDoc,
+  OrderByDirection,
 } from "firebase/firestore";
 
 export const addItem = <T extends { [key: string]: any }>(
@@ -61,11 +62,18 @@ export const deleteItem = (
 
 export const listenToCollection = <T>(
   collectionName: [string, ...string[]],
+  orderCollection: {
+    key: string;
+    orderDirection: OrderByDirection;
+  },
   callback: (data: Array<T & { id: string }>) => void,
   errorCallback?: (error: Error) => void
 ) => {
   const colRef = collection(firestore, ...collectionName);
-  const q = query(colRef, orderBy("timeStamp"));
+  const q = query(
+    colRef,
+    orderBy(orderCollection.key, orderCollection.orderDirection)
+  );
   return onSnapshot(
     q,
     (snapshot: QuerySnapshot<DocumentData>) => {

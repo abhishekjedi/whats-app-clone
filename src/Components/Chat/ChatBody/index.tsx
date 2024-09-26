@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../Context/auth";
 import { messageStructure } from "./ChatBody.types";
 import useFirestoreCollection from "../../../hooks/useFirestore";
+import { OrderByDirection } from "firebase/firestore";
 const Chatbody = () => {
   const { user: loggedInUser } = useContext(AuthContext);
 
@@ -14,9 +15,17 @@ const Chatbody = () => {
     () => ["chats", parms.emailId || "", "messages"],
     [parms.emailId]
   );
-
-  const { data: messages } =
-    useFirestoreCollection<messageStructure>(collectionKeys);
+  const orderCollection = useMemo(
+    () => ({
+      key: "timeStamp",
+      orderDirection: "asc" as OrderByDirection,
+    }),
+    []
+  );
+  const { data: messages } = useFirestoreCollection<messageStructure>(
+    collectionKeys,
+    orderCollection
+  );
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   const scrollToBottom = () => {

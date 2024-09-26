@@ -8,6 +8,7 @@ import { AuthContext } from "../../Context/auth";
 import { Friend, User } from "../../Context/auth/auth.manager.types";
 import { getItems } from "../../Firebase/Firestore.service";
 import useFirestoreCollection from "../../hooks/useFirestore";
+import { OrderByDirection, QueryOrderByConstraint } from "firebase/firestore";
 
 export const Sidebar: React.FC<{
   signOut: () => void;
@@ -23,8 +24,18 @@ export const Sidebar: React.FC<{
     [currentUser?.email]
   );
 
-  const { data: friendList } =
-    useFirestoreCollection<Friend>(friendCollectionRef);
+  const orderCollection = useMemo(
+    () => ({
+      key: "timeStamp",
+      orderDirection: "desc" as OrderByDirection,
+    }),
+    []
+  );
+
+  const { data: friendList } = useFirestoreCollection<Friend>(
+    friendCollectionRef,
+    orderCollection
+  );
 
   console.log(friendList);
 

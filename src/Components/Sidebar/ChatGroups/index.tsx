@@ -21,8 +21,8 @@ const ChatGroups: React.FC<{
       <div className="user-information" onClick={goToUser}>
         <h1>{props.groupName}</h1>
         <div>
-          <p>{props.lastmessage}</p>
-          <span className="time-span-2">{props.time}</span>
+          <p className="last-message">{props.lastmessage}</p>
+          <p className="time-span-2">{props.time}</p>
         </div>
       </div>
     </div>
