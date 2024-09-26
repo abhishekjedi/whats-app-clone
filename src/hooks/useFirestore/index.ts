@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { listenToCollection } from "../../Firebase/Firestore.service";
+import { listenToCollection } from "../../helpers/Firebase/Firestore.service";
 import { UseFirestoreCollectionResult } from "./useFirestore.types";
 import { OrderByDirection } from "firebase/firestore";
 

@@ -6,7 +6,10 @@
 .pnp.js
 /.firebase
 /build
-.firebaseserc
+/dist
+.firebaserc
+package-lock.json
+yarn.lock
 firebase.json
 
 # testing

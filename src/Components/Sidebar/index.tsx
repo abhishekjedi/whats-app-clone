@@ -6,7 +6,7 @@ import ChatGroups from "./ChatGroups";
 import { useState, useEffect } from "react";
 import { AuthContext } from "../../Context/auth";
 import { Friend, User } from "../../Context/auth/auth.manager.types";
-import { getItems } from "../../Firebase/Firestore.service";
+import { getItems } from "../../helpers/Firebase/Firestore.service";
 import useFirestoreCollection from "../../hooks/useFirestore";
 import { OrderByDirection } from "firebase/firestore";
 

@@ -1,6 +1,6 @@
 import { AuthContextType, AuthManagerProps, User } from "./auth.manager.types";
 import { signInWithPopup } from "firebase/auth";
-import { auth, db, googleProvider } from "../../Firebase";
+import { auth, db, googleProvider } from "../../helpers/Firebase";
 import { useState, createContext, useEffect } from "react";
 import { collection, doc, setDoc } from "firebase/firestore";
 import CONSTANTS from "../../Constants/constants";

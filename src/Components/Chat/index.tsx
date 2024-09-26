@@ -5,7 +5,11 @@ import Chatbody from "./ChatBody";
 import ChatSerach from "./ChatType";
 import { useParams } from "react-router-dom";
 import { serverTimestamp } from "firebase/firestore";
-import { addItem, getItem, setItem } from "../../Firebase/Firestore.service";
+import {
+  addItem,
+  getItem,
+  setItem,
+} from "../../helpers/Firebase/Firestore.service";
 import { AuthContext } from "../../Context/auth";
 import { User } from "../../Context/auth/auth.manager.types";
 const Chat = () => {
